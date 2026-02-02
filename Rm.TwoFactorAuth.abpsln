@@ -1,0 +1,9 @@
+{
+  "id": "0ec36d30-2863-4e88-ad18-04936f0585dd",
+  "template": "empty",
+  "modules": {
+    "Rm.TwoFactorAuth": {
+      "path": "Rm.TwoFactorAuth.abpmdl"
+    }
+  }
+}

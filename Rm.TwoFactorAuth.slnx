@@ -1,0 +1,15 @@
+<Solution>
+
+    <Folder Name="/src/">
+        <Project Path="src/Rm.TwoFactorAuth.Domain.Shared/Rm.TwoFactorAuth.Domain.Shared.csproj" />
+        <Project Path="src/Rm.TwoFactorAuth.Application.Contracts/Rm.TwoFactorAuth.Application.Contracts.csproj" />
+        <Project Path="src/Rm.TwoFactorAuth.Application/Rm.TwoFactorAuth.Application.csproj" />
+        <Project Path="src/Rm.TwoFactorAuth.Web/Rm.TwoFactorAuth.Web.csproj" />
+    </Folder>
+    
+    <Folder Name="/test/">
+        <Project Path="test/Rm.TwoFactorAuth.TestBase/Rm.TwoFactorAuth.TestBase.csproj" />
+        <Project Path="test/Rm.TwoFactorAuth.Application.Tests/Rm.TwoFactorAuth.Application.Tests.csproj" />
+        <Project Path="test/Rm.TwoFactorAuth.Web.Tests/Rm.TwoFactorAuth.Web.Tests.csproj" />
+    </Folder>
+</Solution>

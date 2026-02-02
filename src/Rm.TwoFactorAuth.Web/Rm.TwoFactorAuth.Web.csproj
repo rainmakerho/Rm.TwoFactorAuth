@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Rm.TwoFactorAuth.Web</RootNamespace>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+    <Version>$(AbpVersion)$(VersionSuffix)</Version>
+    <IsPackable>true</IsPackable>
+		<PackageId>Rm.TwoFactorAuth.Web</PackageId>
+    <Authors>rainmaker.ho</Authors>
+    <Company>gss.com.tw</Company>
+    <Description>ABP module for TOTP two-factor authentication with QR code and optional enforcement middleware.</Description>
+    <PackageTags>abp;two-factor;2fa;mfa;totp;qrcode</PackageTags>
+    <RepositoryUrl>https://github.com/rainmakerho/Rm.TwoFactorAuth</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageProjectUrl>https://github.com/rainmakerho/Rm.TwoFactorAuth</PackageProjectUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\assets\icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="QRCoder" Version="1.7.0" />
+    <PackageReference Include="Volo.Abp.Mapperly" Version="$(AbpVersion)" />
+	<PackageReference Include="Volo.Abp.Identity.Domain" Version="$(AbpVersion)" />
+	<PackageReference Include="Volo.Abp.Account.Web" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared" Version="$(AbpVersion)" />
+	<PackageReference Include="Volo.Abp.Identity.Web" Version="$(AbpVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rm.TwoFactorAuth.Application.Contracts\Rm.TwoFactorAuth.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Rm.TwoFactorAuth.Application\Rm.TwoFactorAuth.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\**\*.css" />
+    <EmbeddedResource Include="Pages\**\*.js" />
+    <EmbeddedResource Include="Components\**\*.js" />
+    <EmbeddedResource Include="Components\**\*.css" />
+    <EmbeddedResource Include="wwwroot\**\*.js" />
+    <EmbeddedResource Include="wwwroot\**\*.css" />
+    <Content Remove="Pages\**\*.css" />
+    <Content Remove="Pages\**\*.js" />
+    <Content Remove="Components\**\*.js" />
+    <Content Remove="Components\**\*.css" />
+    <Content Remove="wwwroot\**\*.js" />
+    <Content Remove="wwwroot\**\*.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\Identity\Users\Index.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Identity\Users\Index.cshtml" />
+  </ItemGroup>
+
+</Project>

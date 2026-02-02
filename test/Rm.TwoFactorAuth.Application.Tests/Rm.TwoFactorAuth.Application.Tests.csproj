@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Rm.TwoFactorAuth</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Rm.TwoFactorAuth.Application.Contracts\Rm.TwoFactorAuth.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Rm.TwoFactorAuth.Application\Rm.TwoFactorAuth.Application.csproj" />
+    <ProjectReference Include="..\Rm.TwoFactorAuth.TestBase\Rm.TwoFactorAuth.TestBase.csproj" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="Moq" Version="4.20.72" />
+  </ItemGroup>
+
+</Project>

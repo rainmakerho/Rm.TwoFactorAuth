@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Rm.TwoFactorAuth.Web.Pages.Account.Components.ProfileManagementGroup.TwoFactorAuthentication
+@using Rm.TwoFactorAuth.Localization
+@inject IHtmlLocalizer<TwoFactorAuthResource> L
+@model AccountProfileTwoFactorAuthenticationManagementGroupViewComponent.TwoFactorAuthModel
+
+<div id="divDisableMFA" style="display:none;">
+    <abp-alert alert-type="Success">
+        @L["EnableMFAInfo"]
+    </abp-alert>
+
+    <div class="d-flex gap-2">
+        <abp-button id="btnDisableMFA"
+                    button-type="Danger"
+                    type="button"
+                    text="@L["DisableMfa"].Value" />
+
+        <abp-button id="btnResetMFA"
+                    button-type="Warning"
+                    type="button"
+                    text="@L["ResetMfa"].Value" />
+    </div>
+</div>
+
+<div id="divEnableMFA" style="display:none;">
+    <abp-alert alert-type="Info">
+        @L["UseGoogleAuthenticator"]
+    </abp-alert>
+    <div class="d-flex flex-wrap align-items-start gap-4">
+        <div class="mb-3">
+            <img id="mfaQrImage" alt="QR Code" style="max-width: 240px;" />
+        </div>
+
+        <div class="my-3" id="divManualKey" style="display:none;">
+            <div class="form-label">@L["ManualSetupKey"]</div>
+            <div class="d-flex align-items-center gap-2">
+                <code id="mfaManualKey" style="user-select: all;"></code>
+                <abp-button id="btnCopyManualKey" button-type="Secondary" size="Small" type="button" text="@L["Copy"].Value" />
+            </div>
+            <small class="text-muted">@L["ManualSetupKeyHint"]</small>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="VerificationCode">@L["EnterVerificationCode"]</label>
+        <input id="VerificationCode"
+               class="form-control"
+               inputmode="numeric"
+               autocomplete="one-time-code"
+               placeholder="123456" />
+    </div>
+
+    <div class="d-flex gap-2">
+        <abp-button id="btnEnableMFA"
+                    button-type="Primary"
+                    type="button"
+                    text="@L["EnableMfa"].Value" />
+
+        <abp-button id="btnResetMFA2"
+                    button-type="Secondary"
+                    type="button"
+                    text="@L["ResetMfa"].Value" />
+    </div>
+</div>
+
+<script>
+    window.rmTwoFactorInitialEnabled = @(Model.IsEnabled ? "true" : "false");
+</script>

@@ -1,0 +1,62 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "Rm.TwoFactorAuth.Domain": {
+      "path": "src/Rm.TwoFactorAuth.Domain/Rm.TwoFactorAuth.Domain.abppkg",
+      "folder": "src"
+    },
+    "Rm.TwoFactorAuth.Application.Contracts": {
+      "path": "src/Rm.TwoFactorAuth.Application.Contracts/Rm.TwoFactorAuth.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "Rm.TwoFactorAuth.Application": {
+      "path": "src/Rm.TwoFactorAuth.Application/Rm.TwoFactorAuth.Application.abppkg",
+      "folder": "src"
+    },
+    "Rm.TwoFactorAuth.EntityFrameworkCore": {
+      "path": "src/Rm.TwoFactorAuth.EntityFrameworkCore/Rm.TwoFactorAuth.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "Rm.TwoFactorAuth.HttpApi": {
+      "path": "src/Rm.TwoFactorAuth.HttpApi/Rm.TwoFactorAuth.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "Rm.TwoFactorAuth.HttpApi.Client": {
+      "path": "src/Rm.TwoFactorAuth.HttpApi.Client/Rm.TwoFactorAuth.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "Rm.TwoFactorAuth.Web": {
+      "path": "src/Rm.TwoFactorAuth.Web/Rm.TwoFactorAuth.Web.abppkg",
+      "folder": "src"
+    },
+    "Rm.TwoFactorAuth.TestBase": {
+      "path": "test/Rm.TwoFactorAuth.TestBase/Rm.TwoFactorAuth.TestBase.abppkg",
+      "folder": "test"
+    },
+    "Rm.TwoFactorAuth.EntityFrameworkCore.Tests": {
+      "path": "test/Rm.TwoFactorAuth.EntityFrameworkCore.Tests/Rm.TwoFactorAuth.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "Rm.TwoFactorAuth.Domain.Tests": {
+      "path": "test/Rm.TwoFactorAuth.Domain.Tests/Rm.TwoFactorAuth.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "Rm.TwoFactorAuth.Application.Tests": {
+      "path": "test/Rm.TwoFactorAuth.Application.Tests/Rm.TwoFactorAuth.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "Rm.TwoFactorAuth.Domain.Shared": {
+      "path": "src/Rm.TwoFactorAuth.Domain.Shared/Rm.TwoFactorAuth.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "Rm.TwoFactorAuth.Installer": {
+       "path": "src/Rm.TwoFactorAuth.Installer/Rm.TwoFactorAuth.Installer.abppkg",
+       "folder": "src"
+    }
+  }
+}

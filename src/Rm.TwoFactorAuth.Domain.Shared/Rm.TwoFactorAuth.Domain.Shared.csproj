@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Rm.TwoFactorAuth</RootNamespace>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+		<Version>$(AbpVersion)$(VersionSuffix)</Version>
+    <IsPackable>true</IsPackable>
+    <PackageId>Rm.TwoFactorAuth.Domain.Shared</PackageId>
+    <Authors>rainmaker.ho</Authors>
+    <Company>gss.com.tw</Company>
+    <Description>ABP module for TOTP two-factor authentication with QR code and optional enforcement middleware.</Description>
+    <PackageTags>abp;two-factor;2fa;mfa;totp;qrcode</PackageTags>
+    <RepositoryUrl>https://github.com/rainmakerho/Rm.TwoFactorAuth</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageProjectUrl>https://github.com/rainmakerho/Rm.TwoFactorAuth</PackageProjectUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\assets\icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Domain.Shared" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Validation" Version="$(AbpVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\TwoFactorAuth\*.json" />
+    <Content Remove="Localization\TwoFactorAuth\*.json" />
+  </ItemGroup>
+
+</Project>

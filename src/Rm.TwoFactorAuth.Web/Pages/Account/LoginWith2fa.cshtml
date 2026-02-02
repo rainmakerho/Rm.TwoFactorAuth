@@ -1,0 +1,24 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Rm.TwoFactorAuth.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@model Rm.TwoFactorAuth.Web.Pages.Account.LoginWith2faModel
+@inject IHtmlLocalizer<TwoFactorAuthResource> L
+@inject IThemeManager ThemeManager
+@{
+    Layout = ThemeManager.CurrentTheme.GetApplicationLayout();
+}
+<abp-card>
+    <abp-card-body>
+        <h4 class="mb-3">@L["TwoFactorAuthentication"]</h4>
+
+        <form method="post">
+            <abp-input asp-for="Input.TwoFactorCode"  />
+            <abp-input asp-for="Input.RememberMachine" />
+
+            <div class="d-flex gap-2 mt-3">
+                <abp-button button-type="Primary" type="submit" text="@L["Confirm"].Value" />
+            </div>
+        </form>
+    </abp-card-body>
+</abp-card>

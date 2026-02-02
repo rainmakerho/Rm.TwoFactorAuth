@@ -1,0 +1,32 @@
+{
+  "culture": "zh-Hans",
+  "texts": {
+    "ProfileTab:TwoFactorAuthentication": "双因素认证设置",
+    "UserNotExist": "用户不存在。",
+    "EnableMfaFail": "启用双因素认证失败：{0}",
+    "EnableMfaSuccess": "已成功启用双因素认证。",
+    "DisableMfaSuccess": "已成功停用双因素认证。",
+    "DisableMfa": "停用双因素认证",
+    "EnableMfa": "启用双因素认证",
+    "Confirm": "确认",
+    "AreYouSure": "您确定要{0}吗？",
+    "EnableMFAInfo": "双因素认证已启用。",
+    "EnterVerificationCode": "请输入 6 位数验证码",
+    "UseGoogleAuthenticator": "请使用 Google 或 Microsoft Authenticator 扫描下方的二维码：",
+    "RememberMe": "记住我",
+    "RememberDevice": "记住此设备",
+    "TwoFactorAuthentication": "双因素认证",
+    "VerificationCodeError": "验证码无效。",
+    "UserLockedOutMessage": "由于多次登录失败，您的账号已被锁定，请稍后再试。",
+    "UserLogoutOrSessionExpired": "您已退出登录或会话已过期。",
+    "ResetMfa": "重新绑定双因素认证",
+    "ResetMfaSuccess": "双因素认证已重置，请扫描新的二维码。",
+    "ManualSetupKey": "设置密钥 (時間型)",
+    "ManualSetupKeyHint": "如果您无法扫描二维码，请在验证器应用中手动输入此密钥。",
+    "Copy": "复制",
+    "ResetConfirmMessage": "确定要重置 {0} 的双重验证吗？",
+    "ResetSuccess": "双重验证已重置",
+    "ResetFailed": "重置失败，请稍后再试或检查权限/API"
+
+  }
+}

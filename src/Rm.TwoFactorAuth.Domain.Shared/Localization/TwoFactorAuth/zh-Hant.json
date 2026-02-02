@@ -1,0 +1,31 @@
+{
+  "culture": "zh-Hant",
+  "texts": {
+    "ProfileTab:TwoFactorAuthentication": "雙因素驗證設定",
+    "UserNotExist": "使用者不存在。",
+    "EnableMfaFail": "啟用雙因素驗證失敗：{0}",
+    "EnableMfaSuccess": "已成功啟用雙因素驗證。",
+    "DisableMfaSuccess": "已成功停用雙因素驗證。",
+    "DisableMfa": "停用雙因素驗證",
+    "EnableMfa": "啟用雙因素驗證",
+    "Confirm": "確認",
+    "AreYouSure": "您確定要{0}嗎？",
+    "EnableMFAInfo": "雙因素驗證已啟用。",
+    "EnterVerificationCode": "請輸入 6 位數驗證碼",
+    "UseGoogleAuthenticator": "請使用 Google 或 Microsoft Authenticator 掃描下方的 QR Code：",
+    "RememberMe": "記住我",
+    "RememberDevice": "記住此裝置",
+    "TwoFactorAuthentication": "雙因素驗證",
+    "VerificationCodeError": "驗證碼無效。",
+    "UserLockedOutMessage": "由於多次登入失敗，您的帳號已被鎖定，請稍後再試。",
+    "UserLogoutOrSessionExpired": "您已登出或工作階段已過期。",
+    "ResetMfa": "重新綁定雙因素驗證",
+    "ResetMfaSuccess": "雙因素驗證已重設，請掃描新的 QR Code。",
+    "ManualSetupKey": "設定金鑰 (時間型)",
+    "ManualSetupKeyHint": "如果您無法掃描 QR Code，請在驗證器應用程式中手動輸入此金鑰。",
+    "Copy": "複製",
+    "ResetConfirmMessage": "確定要重設 {0} 的雙因素驗證嗎？",
+    "ResetSuccess": "Two-Factor 已重設",
+    "ResetFailed": "重設失敗，請稍後再試或檢查權限/API"
+  }
+}

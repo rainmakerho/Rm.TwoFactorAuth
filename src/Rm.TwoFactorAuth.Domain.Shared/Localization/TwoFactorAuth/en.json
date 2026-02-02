@@ -1,0 +1,31 @@
+{
+  "culture": "en",
+  "texts": {
+    "ProfileTab:TwoFactorAuthentication": "Two-factor authentication settings",
+    "UserNotExist": "The user does not exist.",
+    "EnableMfaFail": "Failed to enable two-factor authentication: {0}",
+    "EnableMfaSuccess": "Two-factor authentication has been enabled successfully.",
+    "DisableMfaSuccess": "Two-factor authentication has been disabled successfully.",
+    "DisableMfa": "Disable two-factor authentication",
+    "EnableMfa": "Enable two-factor authentication",
+    "Confirm": "Confirm",
+    "AreYouSure": "Are you sure you want to {0}?",
+    "EnableMFAInfo": "Two-factor authentication has been enabled.",
+    "EnterVerificationCode": "Enter the 6-digit verification code",
+    "UseGoogleAuthenticator": "Please use Google or Microsoft Authenticator to scan the QR code below:",
+    "RememberMe": "Remember me",
+    "RememberDevice": "Remember this device",
+    "TwoFactorAuthentication": "Two-factor authentication",
+    "VerificationCodeError": "Invalid verification code.",
+    "UserLockedOutMessage": "Your account has been locked due to multiple invalid login attempts. Please wait a while and try again.",
+    "UserLogoutOrSessionExpired": "You have been logged out or your session has expired.",
+    "ResetMfa": "Reset two-factor authentication",
+    "ResetMfaSuccess": "Two-factor authentication has been reset. Please scan the new QR code.",
+    "ManualSetupKey": "Setup key (Time-based)",
+    "ManualSetupKeyHint": "If you can’t scan the QR code, enter this key in your authenticator app.",
+    "Copy": "Copy",
+    "ResetConfirmMessage": "Are you sure you want to reset Two-Factor for {0}?",
+    "ResetSuccess": "Two-Factor has been reset.",
+    "ResetFailed": "Reset failed. Please try again later or check permissions/API."
+  }
+}

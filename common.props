@@ -1,11 +1,27 @@
 <Project>
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
-        <Version>1.0.0</Version>
         <NoWarn>$(NoWarn);CS1591</NoWarn>
         <AbpProjectType>module</AbpProjectType>
         <VersionSuffix Condition="'$(VersionSuffix)' == ''"></VersionSuffix>
+        <AppVersion>10.0.2</AppVersion>
         <AbpVersion>10.0.2</AbpVersion>
+        <Version>$(AppVersion)$(VersionSuffix)</Version>
+        <Authors>rainmaker.ho</Authors>
+        <Company>gss.com.tw</Company>
+        <Description>ABP module for TOTP two-factor authentication with QR code and optional enforcement middleware.</Description>
+        <PackageTags>abp;two-factor;2fa;mfa;totp;qrcode</PackageTags>
+        <RepositoryUrl>https://github.com/rainmakerho/Rm.TwoFactorAuth</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <PackageIcon>icon.png</PackageIcon>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PackageProjectUrl>https://github.com/rainmakerho/Rm.TwoFactorAuth</PackageProjectUrl>
+        <DebugType>portable</DebugType>
+        <Deterministic>true</Deterministic>
+        <ContinuousIntegrationBuild Condition="'$(Configuration)' == 'Release'">true</ContinuousIntegrationBuild>
     </PropertyGroup>
 
     <ItemGroup>

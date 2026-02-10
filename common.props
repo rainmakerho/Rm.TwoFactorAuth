@@ -4,7 +4,7 @@
         <NoWarn>$(NoWarn);CS1591</NoWarn>
         <AbpProjectType>module</AbpProjectType>
         <VersionSuffix Condition="'$(VersionSuffix)' == ''"></VersionSuffix>
-        <AppVersion>10.0.2</AppVersion>
+        <AppVersion>10.0.3</AppVersion>
         <AbpVersion>10.0.2</AbpVersion>
         <Version>$(AppVersion)$(VersionSuffix)</Version>
         <Authors>rainmaker.ho</Authors>

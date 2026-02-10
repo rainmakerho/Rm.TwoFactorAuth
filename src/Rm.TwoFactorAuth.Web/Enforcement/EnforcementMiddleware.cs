@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
+using Rm.TwoFactorAuth.Settings;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Volo.Abp.Settings;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
 
 namespace Rm.TwoFactorAuth.Web.Enforcement;
@@ -14,31 +16,42 @@ public class EnforcementMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly EnforcementOptions _options;
+    private readonly ISettingProvider _settingProvider;
 
-    public EnforcementMiddleware(RequestDelegate next, IOptions<EnforcementOptions> options)
+    public EnforcementMiddleware(RequestDelegate next
+        , IOptions<EnforcementOptions> options
+        , ISettingProvider settingProvider)
     {
         _next = next;
         _options = options.Value;
+        _settingProvider = settingProvider;
     }
 
     public async Task InvokeAsync(HttpContext context, UserManager<IdentityUser> userManager)
     {
-        if (!_options.Enabled || !(context.User?.Identity?.IsAuthenticated ?? false))
-        {
-            await _next(context);
-            return;
-        }
-
-        var path = (context.Request.Path.Value ?? string.Empty).ToLowerInvariant();
-        var enrollPath = _options.EnrollPath.ToLowerInvariant();
-        // Allowlist
-        if (path.StartsWith(enrollPath) || IsAllowListed(path))
+        if (!(context.User?.Identity?.IsAuthenticated ?? false))
         {
             await _next(context);
             return;
         }
 
         
+
+        var path = context.Request.Path.Value ?? string.Empty;
+
+        // Allowlist（先做：最便宜，避免不必要的 setting 讀取與 user 查詢）
+        if (path.StartsWith(_options.EnrollPath, StringComparison.OrdinalIgnoreCase) || IsAllowListed(path))
+        {
+            await _next(context);
+            return;
+        }
+
+        var enabled = await _settingProvider.GetAsync<bool>(TwoFactorAuthSettings.Enforcement.Enabled);
+        if (!enabled)
+        {
+            await _next(context);
+            return;
+        }
 
         //var userManager = context.RequestServices.GetRequiredService<UserManager<IdentityUser>>();
         var user = await userManager.GetUserAsync(context.User);

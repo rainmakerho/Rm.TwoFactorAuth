@@ -1,11 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QRCoder;
+using Rm.TwoFactorAuth.Settings;
 using Rm.TwoFactorAuth.TwoFactor;
+using System.Diagnostics.Eventing.Reader;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Identity;
+using Volo.Abp.MultiTenancy;
+using Volo.Abp.SettingManagement;
+using Volo.Abp.Settings;
 
 
 namespace Rm.TwoFactorAuth.Web.Controllers;
@@ -17,9 +23,20 @@ namespace Rm.TwoFactorAuth.Web.Controllers;
 public class TwoFactorController : AbpController
 {
     private readonly ITwoFactorAppService _twoFactorAppService;
+    private readonly ISettingManager _settingManager;
+    private readonly ICurrentTenant _currentTenant;
+    private readonly ISettingStore _settingStore;
+    public TwoFactorController(ITwoFactorAppService twoFactorAppService
+        , ISettingManager settingManager
+        , ICurrentTenant currentTenant
+        , ISettingStore settingStore)
+    {
+        _twoFactorAppService = twoFactorAppService;
+        _settingManager = settingManager;
+        _currentTenant = currentTenant;
+        _settingStore = settingStore;
+    }
 
-    public TwoFactorController(ITwoFactorAppService twoFactorAppService)
-        => _twoFactorAppService = twoFactorAppService;
 
     [HttpGet("setup")]
     public async Task<object> GetSetupAsync()
@@ -30,6 +47,8 @@ public class TwoFactorController : AbpController
 
     public record EnableInput { public string VerificationCode { get; set; } = ""; }
     public record ResetInput { public string UserId { get; set; } = ""; }
+
+    public record SettingInput { public bool Enforcement { get; set; } = false; };
 
     [HttpPost("enable")]
     public Task EnableAsync([FromBody] EnableInput input)
@@ -79,5 +98,12 @@ public class TwoFactorController : AbpController
         {
             sharedKey = s.SharedKey
         };
+    }
+
+    [HttpPost("setting")]
+    public async Task SettingAsync([FromBody] SettingInput input){
+        var settingName = TwoFactorAuthSettings.Enforcement.Enabled;
+        var value = input.Enforcement ? "true" : "false";
+        await _settingManager.SetForCurrentTenantAsync( settingName, value);
     }
 }

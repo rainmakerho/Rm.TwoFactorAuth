@@ -26,6 +26,9 @@
     "Copy": "Copy",
     "ResetConfirmMessage": "Are you sure you want to reset Two-Factor for {0}?",
     "ResetSuccess": "Two-Factor has been reset.",
-    "ResetFailed": "Reset failed. Please try again later or check permissions/API."
+    "ResetFailed": "Reset failed. Please try again later or check permissions/API.",
+    "Setting:TwoFactorAuth:EnforcementEnabled": "Enforce two-factor authentication (MFA)",
+    "Setting:TwoFactorAuth:EnforcementEnabled:Description": "When enabled, all authenticated users must enable two-factor authentication. Users without MFA will be redirected to the enrollment page (or APIs will return 401 depending on configuration).",
+    "SavedSuccessfully": "Saved successfully"
   }
 }

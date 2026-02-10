@@ -6,6 +6,7 @@ using Rm.TwoFactorAuth.Localization;
 using Rm.TwoFactorAuth.Web.Contributors;
 using Rm.TwoFactorAuth.Web.Enforcement;
 using Rm.TwoFactorAuth.Web.Menus;
+using Rm.TwoFactorAuth.Web.Pages.Account.Components.ProfileManagementGroup.TwoFactorAuthentication;
 using System.Collections.Generic;
 using Volo.Abp;
 using Volo.Abp.Account.Web.Pages.Account;
@@ -15,6 +16,7 @@ using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.Mapperly;
 using Volo.Abp.Modularity;
+using Volo.Abp.SettingManagement.Web.Pages.SettingManagement;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
 
@@ -62,13 +64,22 @@ public class TwoFactorAuthWebModule : AbpModule
         });
 
         ConfigureProfileManagementPage(context.Configuration);
-        var enforcementOptionsKey = "RmTwoFactorAuth:Enforcement";
-        Configure<EnforcementOptions>(
-            context.Configuration.GetSection(enforcementOptionsKey)
-        );
-        
+        ConfigureSettingGroupPage(context.Configuration);
+
     }
 
+    private void ConfigureSettingGroupPage(IConfiguration configuration)
+    {
+        var enforcementOptionsKey = "RmTwoFactorAuth:Enforcement";
+        Configure<EnforcementOptions>(
+            configuration.GetSection(enforcementOptionsKey)
+        );
+        Configure<SettingManagementPageOptions>(options =>
+        {
+            options.Contributors.Add(new TwoFactorAuthSettingPageContributor());
+        });
+        
+    }
     private void ConfigureProfileManagementPage(IConfiguration configuration)
     {
 
@@ -79,18 +90,18 @@ public class TwoFactorAuthWebModule : AbpModule
                 options.Contributors.AddFirst(new ProfileManagementPageContributor());
             });
 
-            Configure<AbpBundlingOptions>(options =>
-            {
-                //using Volo.Abp.Account.Web.Pages.Account;
-                options.ScriptBundles.Configure(
-                    typeof(ManageModel).FullName,
-                    configuration =>
-                    {
-                        configuration.AddFiles("/Pages/Account/Components/ProfileManagementGroup/TwoFactorAuthentication/Default.js");
-                    });
-            });
-  
+        Configure<AbpBundlingOptions>(options =>
+        {
+            //using Volo.Abp.Account.Web.Pages.Account;
+            options.ScriptBundles.Configure(
+                typeof(Volo.Abp.Account.Web.Pages.Account.ManageModel).FullName,
+                configuration =>
+                {
+                    configuration.AddFiles("/Pages/Account/Components/ProfileManagementGroup/TwoFactorAuthentication/Default.js");
+                });
+        });
+
     }
-    
+
 
 }

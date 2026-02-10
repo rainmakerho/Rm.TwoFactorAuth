@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Rm.TwoFactorAuth.Web.Enforcement;
 
 public class EnforcementOptions
 {
+    [Obsolete("Deprecated since v10.0.3. Use ABP setting key 'TwoFactorAuth.Enforcement.Enabled' for per-tenant enforcement. This option will be removed in a future release.")]
     public bool Enabled { get; set; } = false;
 
     public List<string> AllowPathPrefixes { get; set; } = new()

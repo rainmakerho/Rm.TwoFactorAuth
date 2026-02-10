@@ -1,4 +1,6 @@
-﻿$(function () {
+﻿
+(function ($) {
+$(function () {
     const $divDisable = $('#divDisableMFA');
     const $divEnable = $('#divEnableMFA');
     const tfl = abp.localization.getResource('TwoFactorAuth');
@@ -139,3 +141,4 @@
 
     refreshUiFromServer();
 });
+})(jQuery);

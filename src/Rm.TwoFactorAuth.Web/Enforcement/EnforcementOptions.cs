@@ -14,11 +14,10 @@ public class EnforcementOptions
         "/account/loginwith2fa",
         "/account/logout",
         "/account/manage",
-
         "/abp",      
         "/api/abp",
         "/api/rm/two-factor",   
-
+        "/health",
         "/css", "/js", "/lib", "/images", "/favicon", "/assets"
     };
 

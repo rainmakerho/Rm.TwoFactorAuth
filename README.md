@@ -17,6 +17,7 @@ An ABP module that adds **TOTP (Time-based One-Time Password) two-factor authent
 - [x] Manual setup key (for devices without camera)
 - [x] Optional enforcement middleware (force all users to enable MFA)
 - [x] Integrates with ABP Account Profile page (`/Account/Manage`)
+- [x] **Multi-tenant support** - Issuer and Enforcement settings can be configured per tenant
 - [x] Designed for easy mocking & testing
 
 ---
@@ -42,10 +43,12 @@ public class YourHostWebModule : AbpModule
 
 ```json
 {
+  "Settings": {
+    "RmTwoFactorAuth.Issuer": "Rm.TwoFactorAuth",
+    "RmTwoFactorAuth.Enforcement.Enabled": "false"
+  },
   "RmTwoFactorAuth": {
-    "Issuer": "Rm.TwoFactorAuth",
     "Enforcement": {
-      "Enabled": true,
       "EnrollPath": "/account/manage",
       "ApiReturnUnauthorizedInsteadOfRedirect": true
     }
@@ -53,14 +56,66 @@ public class YourHostWebModule : AbpModule
 }
 ```
 
-#### Options
+#### Settings (ABP Setting System - supports per-tenant configuration)
 
-| Key                                      | Description                                       |
-| ---------------------------------------- | ------------------------------------------------- |
-| `Issuer`                                 | App name shown in Authenticator apps              |
-| `Enforcement.Enabled`                    | Force all authenticated users to enable MFA       |
-| `EnrollPath`                             | Page users are redirected to when MFA is required |
-| `ApiReturnUnauthorizedInsteadOfRedirect` | APIs return 401 instead of redirect               |
+| Key                                   | Description                                 | Default            |
+| ------------------------------------- | ------------------------------------------- | ------------------ |
+| `RmTwoFactorAuth.Issuer`              | App name shown in Authenticator apps        | `Rm.TwoFactorAuth` |
+| `RmTwoFactorAuth.Enforcement.Enabled` | Force all authenticated users to enable MFA | `false`            |
+
+These settings can be configured:
+
+- Globally via `appsettings.json` under the `Settings` section
+- Per-tenant via the Setting Management API or database
+
+#### Options (Static configuration)
+
+| Key                                                  | Description                                       | Default                   |
+| ---------------------------------------------------- | ------------------------------------------------- | ------------------------- |
+| `Enforcement.EnrollPath`                             | Page users are redirected to when MFA is required | `/account/manage`         |
+| `Enforcement.ApiReturnUnauthorizedInsteadOfRedirect` | APIs return 401 instead of redirect               | `true`                    |
+| `Enforcement.AllowList`                              | Paths that bypass MFA enforcement                 | Please see the following. |
+
+- Default allowlist typically includes:
+
+```csharp
+"/account/login",
+"/account/loginwith2fa",
+"/account/logout",
+"/account/manage",
+"/abp",
+"/api/abp",
+"/api/rm/two-factor",
+"/health",
+"/css", "/js", "/lib", "/images", "/favicon", "/assets"
+```
+
+### 3) Setting Management API
+
+You can manage settings per-tenant via API:
+
+```http
+POST /api/rm/two-factor/setting
+Content-Type: application/json
+
+{
+  "issuer": "My Company MFA",
+  "enforcement": true
+}
+```
+
+```http
+GET /api/rm/two-factor/setting
+```
+
+Response:
+
+```json
+{
+  "issuer": "My Company MFA",
+  "enforcement": true
+}
+```
 
 ## User Flow
 
@@ -78,49 +133,35 @@ If enforcement is enabled:
 
 - Non-MFA users are automatically redirected to the enroll page.
 
-## UI Integration
-
-This module integrates with the ABP Account Profile page by bundling a script into the `Manage` page:
-
-```csharp
-Configure<AbpBundlingOptions>(options =>
-{
-    options.ScriptBundles.Configure(
-        typeof(ManageModel).FullName,
-        configuration =>
-        {
-            configuration.AddFiles("/Pages/Account/Components/ProfileManagementGroup/TwoFactorAuthentication/Default.js");
-        });
-});
-```
-
 ### UI Display Notes
 
 - Account Profile (`/Account/Manage`): shows QR code + manual setup key when MFA is not enabled, and shows Disable/Reset actions when enabled.
-
-![image](/assets/01.png)
+  ![image](/assets/01.png)
 
 - User Login verify MFA Code (`/Account/LoginWith2fa`): Processes the second stage of the authentication flow. It validates the user-submitted MFA token and establishes a secure session upon successful verification.
-
-![image](/assets/02.png)
+  ![image](/assets/02.png)
 
 - Identity Users (`/Identity/Users`): adds a "Reset MFA" action in the user row actions for administrators.
+  ![image](/assets/03.png)
 
-![image](/assets/03.png)
+  ![image](/assets/04.png)
 
-![image](/assets/04.png)
+- Settings Management: Tenant administrators can configure Issuer and Enforcement settings.
+  ![image](/assets/06.png)
 
+  ![image](/assets/05.png)
 
 ## API Endpoints
 
-| Method | Path                         | Description           |
-| ------ | ---------------------------- | --------------------- |
-| GET    | `/api/rm/two-factor/setup`   | Returns MFA status    |
-| GET    | `/api/rm/two-factor/qr`      | Returns QR code image |
-| POST   | `/api/rm/two-factor/enable`  | Enable MFA            |
-| POST   | `/api/rm/two-factor/disable` | Disable MFA           |
-| POST   | `/api/rm/two-factor/reset`   | Reset MFA (new key)   |
-| POST   | `/api/rm/two-factor/reset-id`| Admin reset MFA by userId |
+| Method | Path                          | Description                    |
+| ------ | ----------------------------- | ------------------------------ |
+| GET    | `/api/rm/two-factor/setup`    | Returns MFA status             |
+| GET    | `/api/rm/two-factor/qr`       | Returns QR code image          |
+| POST   | `/api/rm/two-factor/enable`   | Enable MFA                     |
+| POST   | `/api/rm/two-factor/disable`  | Disable MFA                    |
+| POST   | `/api/rm/two-factor/reset`    | Reset MFA (new key)            |
+| POST   | `/api/rm/two-factor/reset-id` | Admin reset MFA by userId      |
+| POST   | `/api/rm/two-factor/setting`  | Update current tenant settings |
 
 #### Status Codes
 
@@ -153,13 +194,33 @@ When enabled:
 - All authenticated users must enable MFA
 - Allowed paths are configurable via AllowPathPrefixes
 - Default allowlist typically includes:
-  - `/account/login`
-  - `/account/manage`
-  - `/api/rm/two-factor`
-  - `/api/abp`
-  - Static assets (`/css`, `/js`, ...)
+
+```csharp
+"/account/login",
+"/account/loginwith2fa",
+"/account/logout",
+"/account/manage",
+"/abp",
+"/api/abp",
+"/api/rm/two-factor",
+"/health",
+"/css", "/js", "/lib", "/images", "/favicon", "/assets"
+```
 
 This prevents redirect loops and keeps ABP infrastructure endpoints working.
+
+## Multi-Tenant Support
+
+This module fully supports ABP multi-tenancy:
+
+- **Issuer**: Each tenant can have a different app name shown in Authenticator apps
+- **Enforcement**: Each tenant can independently enable/disable MFA enforcement
+
+Settings are stored in the `AbpSettings` table and can be managed via:
+
+1. Setting Management UI
+2. Setting Management API (`/api/rm/two-factor/setting`)
+3. Direct database update
 
 ## NuGet Packages
 

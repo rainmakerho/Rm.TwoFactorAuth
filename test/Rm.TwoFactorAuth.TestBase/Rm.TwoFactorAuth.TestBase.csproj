@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
@@ -20,9 +20,14 @@
     <PackageReference Include="xunit.extensibility.execution" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
     <PackageReference Include="Volo.Abp.Autofac" Version="$(AbpVersion)" />
-    <PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)"/>
-    <PackageReference Include="Volo.Abp.Guids" Version="$(AbpVersion)"/>
-    <PackageReference Include="Volo.Abp.TestBase" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Guids" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.TestBase" Version="$(AbpVersion)" />
+	<PackageReference Include="Moq" Version="4.20.72" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Rm.TwoFactorAuth.Domain.Shared\Rm.TwoFactorAuth.Domain.Shared.csproj" />
   </ItemGroup>
 
 </Project>

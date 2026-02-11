@@ -1,10 +1,11 @@
 ﻿@using Localization.Resources.AbpUi
 @using Rm.TwoFactorAuth.Localization
 @using Microsoft.AspNetCore.Mvc.Localization
-@using Rm.TwoFactorAuth.Web.Pages.TwoFactorAuth.Components.SettingGroup
+@using Rm.TwoFactorAuth.Web.Models
 @model TwoFactorAuthSettingGroupViewModel
 @inject IHtmlLocalizer<TwoFactorAuthResource> L
 @inject IHtmlLocalizer<AbpUiResource> ABPL
+
 <abp-script-bundle name="@typeof(TwoFactorAuthSettingGroupViewModel).FullName">
     <abp-script src="/Pages/TwoFactorAuth/Components/SettingGroup/Default.js" />
 </abp-script-bundle>
@@ -13,21 +14,13 @@
     <div class="card-body">
         <h5 class="card-title">@L["ProfileTab:TwoFactorAuthentication"]</h5>
 
-        <form method="post" action="@(Context.Request.PathBase + "/TwoFactorAuth/SettingGroup/Update")">
-            @Html.AntiForgeryToken()
+        <form id="TwoFactorAuthSettingForm">
+            <abp-input asp-for="Issuer" label="@L["Setting:TwoFactorAuth:Issuer"].Value" />
 
-            <div class="form-check">
-                <input class="form-check-input"
-                       type="checkbox"
-                       id="EnforcementEnabled"
-                       name="EnforcementEnabled"
-                       value="true"
-                       @(Model.EnforcementEnabled ? "checked" : "") />
-                <label class="form-check-label" for="EnforcementEnabled">
-                    @L["Setting:TwoFactorAuth:EnforcementEnabled"]
-                </label>
-            </div>
-           
+            <abp-input asp-for="EnforcementEnabled"
+                       label="@L["Setting:TwoFactorAuth:Enforcement:Enabled"].Value"
+                       info="@L["Setting:TwoFactorAuth:Enforcement:Enabled:Description"].Value" />
+
             <abp-button id="btnSaveSetting" button-type="Primary" type="button">
                 <i class="fa fa-save"></i> @ABPL["Save"]
             </abp-button>

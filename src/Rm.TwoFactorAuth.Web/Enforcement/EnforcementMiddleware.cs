@@ -7,8 +7,9 @@ using Rm.TwoFactorAuth.Settings;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Volo.Abp.Settings;
+using Volo.Abp.SettingManagement;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
+using ISettingManager = Volo.Abp.SettingManagement.ISettingManager;
 
 namespace Rm.TwoFactorAuth.Web.Enforcement;
 
@@ -16,15 +17,15 @@ public class EnforcementMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly EnforcementOptions _options;
-    private readonly ISettingProvider _settingProvider;
+    private readonly ISettingManager _settingManager;
 
     public EnforcementMiddleware(RequestDelegate next
         , IOptions<EnforcementOptions> options
-        , ISettingProvider settingProvider)
+        , ISettingManager settingManager)
     {
         _next = next;
         _options = options.Value;
-        _settingProvider = settingProvider;
+        _settingManager = settingManager;
     }
 
     public async Task InvokeAsync(HttpContext context, UserManager<IdentityUser> userManager)
@@ -46,7 +47,8 @@ public class EnforcementMiddleware
             return;
         }
 
-        var enabled = await _settingProvider.GetAsync<bool>(TwoFactorAuthSettings.Enforcement.Enabled);
+        var enabledString = await _settingManager.GetOrNullForCurrentTenantAsync(TwoFactorAuthSettings.Enforcement.Enabled);
+        var enabled = bool.TryParse(enabledString, out var result) && result;
         if (!enabled)
         {
             await _next(context);
@@ -86,7 +88,8 @@ public class EnforcementMiddleware
     }
 
     private bool IsAllowListed(string path)
-        => _options.AllowPathPrefixes.Any(p => path.StartsWith((p ?? "").ToLowerInvariant()));
+    => _options.AllowPathPrefixes.Any(p =>
+        path.StartsWith(p ?? "", StringComparison.OrdinalIgnoreCase));
 
     private static bool IsApiRequest(HttpContext context, string path)
     {

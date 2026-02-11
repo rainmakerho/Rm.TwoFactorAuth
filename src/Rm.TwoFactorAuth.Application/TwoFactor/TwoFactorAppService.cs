@@ -2,15 +2,18 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Rm.TwoFactorAuth.Settings;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Authorization;
 using Volo.Abp.Identity;
+using Volo.Abp.SettingManagement;
 using Volo.Abp.Users;
 using Volo.Abp.Validation;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
+using ISettingManager = Volo.Abp.SettingManagement.ISettingManager;
 
 namespace Rm.TwoFactorAuth.TwoFactor;
 
@@ -19,17 +22,16 @@ public class TwoFactorAppService : TwoFactorAuthAppService, ITwoFactorAppService
 {
     private readonly UserManager<IdentityUser> _userManager;
     private readonly ICurrentUser _currentUser;
-    private readonly TwoFactorAuthOptions _options;
     private readonly ILogger<TwoFactorAppService> _logger;
-
-    public TwoFactorAppService(UserManager<IdentityUser> userManager, ICurrentUser currentUser,
-        IOptions<TwoFactorAuthOptions> twoFactorOptions
+    private readonly ISettingManager _settingManager;
+    public TwoFactorAppService(UserManager<IdentityUser> userManager, ICurrentUser currentUser
+        , ISettingManager settingManager
         , ILogger<TwoFactorAppService> logger)
     {
         _userManager = userManager;
         _currentUser = currentUser;
-        _options = twoFactorOptions.Value;
         _logger = logger;
+        _settingManager = settingManager;
     }
     public async Task<GetTwoFactorSetupOutput> GetSetupAsync()
     {
@@ -194,8 +196,8 @@ public class TwoFactorAppService : TwoFactorAuthAppService, ITwoFactorAppService
             await _userManager.ResetAuthenticatorKeyAsync(user);
             key = await _userManager.GetAuthenticatorKeyAsync(user);
         }
-
-        var issuer = _options.Issuer;
+        var issuer = await _settingManager.GetOrNullForCurrentTenantAsync(TwoFactorAuthSettings.Issuer);
+        
         var account = user.Email ?? user.UserName ?? user.Id.ToString();
 
         return GenerateOtpAuthUri(issuer, account, key!);

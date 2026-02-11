@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using Rm.TwoFactorAuth.Permissions;
 using Rm.TwoFactorAuth.Settings;
 using Rm.TwoFactorAuth.Web.Pages.TwoFactorAuth.Components.SettingGroup;
 using System.Collections.Generic;
@@ -25,9 +27,9 @@ public class TwoFactorAuthSettingPageContributor : ISettingPageContributor
         return Task.CompletedTask;
     }
 
-    public Task<bool> CheckPermissionsAsync(SettingPageCreationContext context)
+    public async Task<bool> CheckPermissionsAsync(SettingPageCreationContext context)
     {
-        // You can check the permissions here
-        return Task.FromResult(true);
+        var authorizationService = context.ServiceProvider.GetRequiredService<IAuthorizationService>();
+        return await authorizationService.IsGrantedAsync(TwoFactorAuthPermissions.SettingsManage);
     }
 }

@@ -27,9 +27,13 @@
     "ResetConfirmMessage": "确定要重置 {0} 的双重验证吗？",
     "ResetSuccess": "双重验证已重置",
     "ResetFailed": "重置失败，请稍后再试或检查权限/API",
-    "Setting:TwoFactorAuth:EnforcementEnabled": "强制启用双重验证 (MFA)",
-    "Setting:TwoFactorAuth:EnforcementEnabled:Description": "启用后，所有已登入使用者都必须启用双重验证。未启用 MFA 的使用者将被导向至绑定页面（或依设定由 API 回传 401）。",
-    "SavedSuccessfully": "保存成功"
+    "Setting:TwoFactorAuth:Enforcement:Enabled": "强制启用双重验证 (MFA)",
+    "Setting:TwoFactorAuth:Enforcement:Enabled:Description": "启用后，所有已登入使用者都必须启用双重验证。未启用 MFA 的使用者将被导向至绑定页面（或依设定由 API 回传 401）。",
+    "SavedSuccessfully": "保存成功",
+    "Setting:TwoFactorAuth:Issuer": "發行者",
+    "Setting:TwoFactorAuth:Issuer:Description": "在身份验证器 App 中显示的應用程序名稱（例如：Google 身份验证器）",
+    "Permission:RmTwoFactorAuth": "双因素认证",
+    "Permission:Settings:Manage": "双因素认证设置"
 
   }
 }

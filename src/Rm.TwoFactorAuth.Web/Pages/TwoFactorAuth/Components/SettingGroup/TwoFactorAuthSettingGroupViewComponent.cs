@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Rm.TwoFactorAuth.Settings;
+using Rm.TwoFactorAuth.Web.Models;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Volo.Abp.AspNetCore.Mvc;
@@ -21,12 +22,13 @@ public class TwoFactorAuthSettingGroupViewComponent : AbpViewComponent
     }
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var settingName = TwoFactorAuthSettings.Enforcement.Enabled;
-        var enabledString = await _settingManager.GetOrNullForCurrentTenantAsync(settingName, false);  
+        var enabledString = await _settingManager.GetOrNullForCurrentTenantAsync(TwoFactorAuthSettings.Enforcement.Enabled);  
         var enabled = bool.TryParse(enabledString, out var result) && result;
+        var issuer = await _settingManager.GetOrNullForCurrentTenantAsync(TwoFactorAuthSettings.Issuer);
         var vm = new TwoFactorAuthSettingGroupViewModel
         {
-            EnforcementEnabled = enabled
+            EnforcementEnabled = enabled,
+            Issuer = issuer
         };
 
         return View("~/Pages/TwoFactorAuth/Components/SettingGroup/Default.cshtml", vm);

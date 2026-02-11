@@ -16,6 +16,7 @@ using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.Mapperly;
 using Volo.Abp.Modularity;
+using Volo.Abp.SettingManagement;
 using Volo.Abp.SettingManagement.Web.Pages.SettingManagement;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
@@ -26,7 +27,8 @@ namespace Rm.TwoFactorAuth.Web;
     typeof(TwoFactorAuthApplicationModule),
     typeof(TwoFactorAuthApplicationContractsModule),
     typeof(AbpAspNetCoreMvcUiThemeSharedModule),
-    typeof(AbpMapperlyModule)
+    typeof(AbpMapperlyModule),
+    typeof(AbpSettingManagementDomainModule)
     )]
 public class TwoFactorAuthWebModule : AbpModule
 {
@@ -83,22 +85,11 @@ public class TwoFactorAuthWebModule : AbpModule
     private void ConfigureProfileManagementPage(IConfiguration configuration)
     {
 
-            //using Volo.Abp.Account.Web.ProfileManagement;
-            Configure<ProfileManagementPageOptions>(options =>
-            {
-                //using Sun.Contributors;
-                options.Contributors.AddFirst(new ProfileManagementPageContributor());
-            });
-
-        Configure<AbpBundlingOptions>(options =>
+        //using Volo.Abp.Account.Web.ProfileManagement;
+        Configure<ProfileManagementPageOptions>(options =>
         {
-            //using Volo.Abp.Account.Web.Pages.Account;
-            options.ScriptBundles.Configure(
-                typeof(Volo.Abp.Account.Web.Pages.Account.ManageModel).FullName,
-                configuration =>
-                {
-                    configuration.AddFiles("/Pages/Account/Components/ProfileManagementGroup/TwoFactorAuthentication/Default.js");
-                });
+            //using Sun.Contributors;
+            options.Contributors.AddFirst(new ProfileManagementPageContributor());
         });
 
     }

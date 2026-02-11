@@ -27,9 +27,13 @@
     "ResetConfirmMessage": "確定要重設 {0} 的雙因素驗證嗎？",
     "ResetSuccess": "Two-Factor 已重設",
     "ResetFailed": "重設失敗，請稍後再試或檢查權限/API",
-    "Setting:TwoFactorAuth:EnforcementEnabled": "強制啟用多重要素驗證 (MFA)",
-    "Setting:TwoFactorAuth:EnforcementEnabled:Description": "啟用後，所有已登入使用者都必須啟用多重要素驗證。未啟用 MFA 的使用者將被導向至綁定頁面（或依設定由 API 回傳 401）。",
-    "SavedSuccessfully": "保存成功"
+    "Setting:TwoFactorAuth:Enforcement:Enabled": "強制啟用多重要素驗證 (MFA)",
+    "Setting:TwoFactorAuth:Enforcement:Enabled:Description": "啟用後，所有已登入使用者都必須啟用多重要素驗證。未啟用 MFA 的使用者將被導向至綁定頁面（或依設定由 API 回傳 401）。",
+    "SavedSuccessfully": "保存成功",
+    "Setting:TwoFactorAuth:Issuer": "發行者",
+    "Setting:TwoFactorAuth:Issuer:Description": "在身份驗證器 App 中顯示的應用程式名稱（例如：Google 驗證器）",
+    "Permission:RmTwoFactorAuth": "雙因素驗證",
+    "Permission:Settings:Manage": "雙因素驗證設定"
 
   }
 }

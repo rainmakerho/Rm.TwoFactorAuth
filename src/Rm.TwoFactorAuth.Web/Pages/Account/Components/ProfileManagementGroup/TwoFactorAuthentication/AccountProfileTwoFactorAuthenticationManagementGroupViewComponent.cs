@@ -2,9 +2,13 @@
 using Rm.TwoFactorAuth.TwoFactor;
 using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc.UI.Widgets;
+
 
 namespace Rm.TwoFactorAuth.Web.Pages.Account.Components.ProfileManagementGroup.TwoFactorAuthentication;
 
+[Widget(ScriptFiles = new[] { "/Pages/Account/Components/ProfileManagementGroup/TwoFactorAuthentication/Default.js" })]
+[ViewComponent(Name = "AccountProfileTwoFactorAuthenticationManagementGroup")]
 public class AccountProfileTwoFactorAuthenticationManagementGroupViewComponent : AbpViewComponent
 {
     private readonly ITwoFactorAppService _twoFactorAppService;

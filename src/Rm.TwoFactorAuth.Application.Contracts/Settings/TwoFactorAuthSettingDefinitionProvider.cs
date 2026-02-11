@@ -1,7 +1,4 @@
 ﻿using Rm.TwoFactorAuth.Localization;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Volo.Abp.Localization;
 using Volo.Abp.Settings;
 
@@ -13,10 +10,25 @@ public class TwoFactorAuthSettingDefinitionProvider : SettingDefinitionProvider
     {
         context.Add(
             new SettingDefinition(
+                TwoFactorAuthSettings.Issuer,
+                defaultValue: "Rm.TwoFactorAuth",
+                displayName: LocalizableString.Create<TwoFactorAuthResource>("Setting:TwoFactorAuth:Issuer"),
+                description: LocalizableString.Create<TwoFactorAuthResource>("Setting:TwoFactorAuth:Issuer:Description"),
+                isVisibleToClients: false
+            )
+            .WithProviders(
+                DefaultValueSettingValueProvider.ProviderName,
+                ConfigurationSettingValueProvider.ProviderName,
+                TenantSettingValueProvider.ProviderName
+            )
+        );
+
+        context.Add(
+            new SettingDefinition(
                 TwoFactorAuthSettings.Enforcement.Enabled,
                 defaultValue: "false",
-                displayName: LocalizableString.Create<TwoFactorAuthResource>("Setting:TwoFactorAuth:EnforcementEnabled"),
-                description: LocalizableString.Create<TwoFactorAuthResource>("Setting:TwoFactorAuth:EnforcementEnabled:Description"),
+                displayName: LocalizableString.Create<TwoFactorAuthResource>("Setting:TwoFactorAuth:Enforcement:Enabled"),
+                description: LocalizableString.Create<TwoFactorAuthResource>("Setting:TwoFactorAuth:Enforcement:Enabled:Description"),
                 isVisibleToClients: true
             )
             .WithProviders(
@@ -25,5 +37,6 @@ public class TwoFactorAuthSettingDefinitionProvider : SettingDefinitionProvider
                 TenantSettingValueProvider.ProviderName
             )
         );
+
     }
 }

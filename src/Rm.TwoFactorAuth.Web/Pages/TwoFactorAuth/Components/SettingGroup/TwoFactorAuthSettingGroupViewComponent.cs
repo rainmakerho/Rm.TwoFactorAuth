@@ -3,7 +3,6 @@ using Rm.TwoFactorAuth.Settings;
 using Rm.TwoFactorAuth.Web.Models;
 using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.AspNetCore.Mvc.UI.Widgets;
 using Volo.Abp.Settings;
 
 namespace Rm.TwoFactorAuth.Web.Pages.TwoFactorAuth.Components.SettingGroup;

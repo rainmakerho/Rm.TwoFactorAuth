@@ -7,7 +7,13 @@ An ABP module that adds **TOTP (Time-based One-Time Password) two-factor authent
 - Optional **MFA enforcement middleware**
 - Testable Application + Web integration tests
 
----
+## Compatibility
+
+| Package Version | ABP Version |
+|-----------------|-------------|
+| 10.0.3          | 10.0.3      |
+
+--- 
 
 ## Features
 
@@ -101,20 +107,7 @@ Content-Type: application/json
 
 {
   "issuer": "My Company MFA",
-  "enforcement": true
-}
-```
-
-```http
-GET /api/rm/two-factor/setting
-```
-
-Response:
-
-```json
-{
-  "issuer": "My Company MFA",
-  "enforcement": true
+  "enforcementEnabled": true
 }
 ```
 
@@ -225,6 +218,7 @@ Settings are stored in the `AbpSettings` table and can be managed via:
 3. Direct database update
 
 ## NuGet Packages
+[![NuGet](https://img.shields.io/nuget/v/Rm.TwoFactorAuth.Web.svg)](https://www.nuget.org/packages/Rm.TwoFactorAuth.Web/)
 
 Install **only** `Rm.TwoFactorAuth.Web`. The other packages are pulled in automatically as dependencies.
 

@@ -53,7 +53,6 @@ public class EnforcementMiddleware
             return;
         }
 
-        //var userManager = context.RequestServices.GetRequiredService<UserManager<IdentityUser>>();
         var user = await userManager.GetUserAsync(context.User);
         if (user == null)
         {

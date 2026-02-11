@@ -5,14 +5,10 @@ using Rm.TwoFactorAuth.Permissions;
 using Rm.TwoFactorAuth.Settings;
 using Rm.TwoFactorAuth.TwoFactor;
 using Rm.TwoFactorAuth.Web.Models;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Identity;
-using Volo.Abp.MultiTenancy;
 using Volo.Abp.SettingManagement;
 using ISettingManager = Volo.Abp.SettingManagement.ISettingManager;
 
@@ -28,8 +24,7 @@ public class TwoFactorController : AbpController
     private readonly ISettingManager _settingManager;
      
     public TwoFactorController(ITwoFactorAppService twoFactorAppService
-        , ISettingManager settingManager
-        , ICurrentTenant currentTenant
+        , ISettingManager settingManager 
        )
     {
         _twoFactorAppService = twoFactorAppService;

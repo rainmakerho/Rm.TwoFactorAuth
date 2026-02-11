@@ -5,7 +5,7 @@
         <AbpProjectType>module</AbpProjectType>
         <VersionSuffix Condition="'$(VersionSuffix)' == ''"></VersionSuffix>
         <AppVersion>10.0.3</AppVersion>
-        <AbpVersion>10.0.2</AbpVersion>
+        <AbpVersion>10.0.3</AbpVersion>
         <Version>$(AppVersion)$(VersionSuffix)</Version>
         <Authors>rainmaker.ho</Authors>
         <Company>gss.com.tw</Company>

@@ -97,18 +97,18 @@ public class TwoFactorAuthApplicationTestModule : AbpModule
     private void ConfigureSettingMocks(ServiceConfigurationContext context)
     {
         //// Mock ISettingProvider
-        //var settingProviderMock = new Mock<ISettingProvider>();
+        var settingProviderMock = new Mock<ISettingProvider>();
 
-        //settingProviderMock
-        //    .Setup(x => x.GetOrNullAsync(TwoFactorAuthSettings.Issuer))
-        //    .ReturnsAsync("TestIssuer");
+        settingProviderMock
+            .Setup(x => x.GetOrNullAsync(TwoFactorAuthSettings.Issuer))
+            .ReturnsAsync("TestIssuer");
 
-        //settingProviderMock
-        //    .Setup(x => x.GetOrNullAsync(TwoFactorAuthSettings.Enforcement.Enabled))
-        //    .ReturnsAsync("false");
+        settingProviderMock
+            .Setup(x => x.GetOrNullAsync(TwoFactorAuthSettings.Enforcement.Enabled))
+            .ReturnsAsync("false");
 
-        //context.Services.Replace(ServiceDescriptor.Singleton(settingProviderMock.Object));
-        //context.Services.AddSingleton(settingProviderMock);
+        context.Services.Replace(ServiceDescriptor.Singleton(settingProviderMock.Object));
+        context.Services.AddSingleton(settingProviderMock);
 
         // Mock ISettingManager (SettingManagement)
         // 注意：GetOrNullForCurrentTenantAsync 是 extension method，

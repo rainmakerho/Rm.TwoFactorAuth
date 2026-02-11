@@ -14,6 +14,7 @@ public class EnforcementOptions
         "/account/loginwith2fa",
         "/account/logout",
         "/account/manage",
+        "/settingmanagement",
         "/abp",      
         "/api/abp",
         "/api/rm/two-factor",   

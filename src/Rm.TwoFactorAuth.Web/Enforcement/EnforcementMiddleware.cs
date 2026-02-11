@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using Rm.TwoFactorAuth.Settings;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Volo.Abp.SettingManagement;
+using Volo.Abp.Settings;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
-using ISettingManager = Volo.Abp.SettingManagement.ISettingManager;
 
 namespace Rm.TwoFactorAuth.Web.Enforcement;
 
@@ -17,15 +15,15 @@ public class EnforcementMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly EnforcementOptions _options;
-    private readonly ISettingManager _settingManager;
+    private readonly ISettingProvider _settingProvider;
 
     public EnforcementMiddleware(RequestDelegate next
         , IOptions<EnforcementOptions> options
-        , ISettingManager settingManager)
+        , ISettingProvider settingProvider)
     {
         _next = next;
         _options = options.Value;
-        _settingManager = settingManager;
+        _settingProvider = settingProvider;
     }
 
     public async Task InvokeAsync(HttpContext context, UserManager<IdentityUser> userManager)
@@ -47,7 +45,7 @@ public class EnforcementMiddleware
             return;
         }
 
-        var enabledString = await _settingManager.GetOrNullForCurrentTenantAsync(TwoFactorAuthSettings.Enforcement.Enabled);
+        var enabledString = await _settingProvider.GetOrNullAsync(TwoFactorAuthSettings.Enforcement.Enabled);
         var enabled = bool.TryParse(enabledString, out var result) && result;
         if (!enabled)
         {

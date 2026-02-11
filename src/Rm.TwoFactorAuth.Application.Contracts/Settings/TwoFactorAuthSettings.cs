@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Rm.TwoFactorAuth.Settings;
+﻿namespace Rm.TwoFactorAuth.Settings;
 
 public static class TwoFactorAuthSettings
 {

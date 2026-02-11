@@ -19,6 +19,7 @@ using Volo.Abp.AspNetCore.TestBase;
 using Volo.Abp.Modularity;
 using Volo.Abp.OpenIddict;
 using Volo.Abp.SettingManagement;
+using Volo.Abp.Settings;
 using Volo.Abp.UI.Navigation;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
 namespace Rm.TwoFactorAuth;
@@ -63,7 +64,19 @@ public class TwoFactorAuthWebTestModule : AbpModule
     private void ConfigureSettingMocks(ServiceConfigurationContext context)
     {
 
+        //// Mock ISettingProvider
+        var settingProviderMock = new Mock<ISettingProvider>();
 
+        settingProviderMock
+            .Setup(x => x.GetOrNullAsync(TwoFactorAuthSettings.Issuer))
+            .ReturnsAsync("TestIssuer");
+
+        settingProviderMock
+            .Setup(x => x.GetOrNullAsync(TwoFactorAuthSettings.Enforcement.Enabled))
+            .ReturnsAsync("true");
+
+        context.Services.Replace(ServiceDescriptor.Singleton(settingProviderMock.Object));
+        context.Services.AddSingleton(settingProviderMock);
         // Mock ISettingManager (SettingManagement)
         // 注意：GetOrNullForCurrentTenantAsync 是 extension method，
         // 底層呼叫的是 GetOrNullAsync，所以我們 mock 這個方法

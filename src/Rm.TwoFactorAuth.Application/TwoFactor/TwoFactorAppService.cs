@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Rm.TwoFactorAuth.Settings;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Volo.Abp;
-using Volo.Abp.Authorization;
 using Volo.Abp.Identity;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.Users;
@@ -52,8 +49,6 @@ public class TwoFactorAppService : TwoFactorAuthAppService, ITwoFactorAppService
             await _userManager.ResetAuthenticatorKeyAsync(user);
             key = await _userManager.GetAuthenticatorKeyAsync(user);
         }
-
-        var account = user.Email ?? user.UserName ?? user.Id.ToString();
 
         return new GetTwoFactorSetupOutput
         {

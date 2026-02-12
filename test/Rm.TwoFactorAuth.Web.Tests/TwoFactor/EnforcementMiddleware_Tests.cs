@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Moq;
 using Shouldly;
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Net.Http.Json;
-using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Xunit;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
@@ -58,9 +53,5 @@ public class EnforcementMiddleware_Tests: TwoFactorAuthWebTestBase
         // Assert
         resp.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
     }
-
-     
-
-
     
 }

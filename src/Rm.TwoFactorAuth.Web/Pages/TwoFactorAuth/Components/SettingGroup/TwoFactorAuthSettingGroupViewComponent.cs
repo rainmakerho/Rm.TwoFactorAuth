@@ -17,10 +17,8 @@ public class TwoFactorAuthSettingGroupViewComponent : AbpViewComponent
     }
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var issuer = await _settingProvider.GetOrNullAsync(TwoFactorAuthSettings.Issuer)
-                     ?? "Rm.TwoFactorAuth";
-        var enabledString = await _settingProvider.GetOrNullAsync(TwoFactorAuthSettings.Enforcement.Enabled);
-        var enabled = bool.TryParse(enabledString, out var result) && result;
+        var issuer = await _settingProvider.GetOrNullAsync(TwoFactorAuthSettings.Issuer);
+        var enabled = await _settingProvider.GetAsync<bool>(TwoFactorAuthSettings.Enforcement.Enabled);
         var vm = new TwoFactorAuthSettingGroupViewModel
         {
             EnforcementEnabled = enabled,

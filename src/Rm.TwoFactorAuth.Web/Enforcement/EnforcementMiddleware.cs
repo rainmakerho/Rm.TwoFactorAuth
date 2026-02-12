@@ -45,8 +45,7 @@ public class EnforcementMiddleware
             return;
         }
 
-        var enabledString = await _settingProvider.GetOrNullAsync(TwoFactorAuthSettings.Enforcement.Enabled);
-        var enabled = bool.TryParse(enabledString, out var result) && result;
+        var enabled = await _settingProvider.GetAsync<bool>(TwoFactorAuthSettings.Enforcement.Enabled);
         if (!enabled)
         {
             await _next(context);

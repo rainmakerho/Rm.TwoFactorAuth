@@ -6,11 +6,10 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Identity;
-using Volo.Abp.SettingManagement;
+using Volo.Abp.Settings;
 using Volo.Abp.Users;
 using Volo.Abp.Validation;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
-using ISettingManager = Volo.Abp.SettingManagement.ISettingManager;
 
 namespace Rm.TwoFactorAuth.TwoFactor;
 
@@ -20,15 +19,15 @@ public class TwoFactorAppService : TwoFactorAuthAppService, ITwoFactorAppService
     private readonly UserManager<IdentityUser> _userManager;
     private readonly ICurrentUser _currentUser;
     private readonly ILogger<TwoFactorAppService> _logger;
-    private readonly ISettingManager _settingManager;
+    private readonly ISettingProvider _settingProvider;
     public TwoFactorAppService(UserManager<IdentityUser> userManager, ICurrentUser currentUser
-        , ISettingManager settingManager
+        , ISettingProvider settingProvider
         , ILogger<TwoFactorAppService> logger)
     {
         _userManager = userManager;
         _currentUser = currentUser;
         _logger = logger;
-        _settingManager = settingManager;
+        _settingProvider = settingProvider;
     }
     public async Task<GetTwoFactorSetupOutput> GetSetupAsync()
     {
@@ -191,7 +190,7 @@ public class TwoFactorAppService : TwoFactorAuthAppService, ITwoFactorAppService
             await _userManager.ResetAuthenticatorKeyAsync(user);
             key = await _userManager.GetAuthenticatorKeyAsync(user);
         }
-        var issuer = await _settingManager.GetOrNullForCurrentTenantAsync(TwoFactorAuthSettings.Issuer);
+        var issuer = await _settingProvider.GetOrNullAsync(TwoFactorAuthSettings.Issuer);
         
         var account = user.Email ?? user.UserName ?? user.Id.ToString();
 

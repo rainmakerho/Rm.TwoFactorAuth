@@ -1,16 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.VisualStudio.TestPlatform.Utilities;
 using Moq;
 using Shouldly;
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Xunit;
-using static Volo.Abp.Identity.Settings.IdentitySettingNames;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
 namespace Rm.TwoFactorAuth.TwoFactor;
 
